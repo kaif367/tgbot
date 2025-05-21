@@ -59,7 +59,10 @@ async def main():
     await tele_client.start()
     await bot.start()
     print("Bot is running...")
-    await asyncio.gather(bot.idle(), tele_client.run_until_disconnected())
+    await asyncio.gather(
+        tele_client.run_until_disconnected(),
+        asyncio.Event().wait()  # Keeps Pyrogram bot alive
+    )
 
 if __name__ == "__main__":
     asyncio.run(main())
